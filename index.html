@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Awa Beauty — Shade Finder yang Jujur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff6f4;--bg2:#fde4ea;--ink:#3a1c2e;--mute:#8a6577;--card:rgba(255,255,255,.62);--line:rgba(120,50,80,.14);--a:#e0698f;--b:#f6b7a0;--c:#c9a4f0;--on:#fff;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme=lavender]{--bg:#f7f1ff;--bg2:#e6d9ff;--ink:#2d2150;--mute:#7a6c9f;--a:#8a63e0;--b:#f0a6d2;--c:#9fc7ff}
+:root[data-theme=peach]{--bg:#fff4e8;--bg2:#ffe0c7;--ink:#4a2a1c;--mute:#996d58;--a:#e8794d;--b:#f7c06a;--c:#f59ab4}
+:root[data-theme=midnight]{--bg:#1a0f1f;--bg2:#2d1634;--ink:#fbeaf1;--mute:#b99ab0;--card:rgba(255,255,255,.07);--line:rgba(255,255,255,.14);--a:#ff8fb5;--b:#c58bff;--c:#ffc2a0;--on:#2a1030;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{font-family:Manrope,system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6;overflow-x:hidden;transition:background .5s,color .5s}
+.aurora{position:fixed;inset:0;z-index:-1;overflow:hidden;background:linear-gradient(160deg,var(--bg),var(--bg2))}
+.aurora i{position:absolute;border-radius:50%;filter:blur(80px);opacity:.55;animation:float 18s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:46vw;height:46vw;left:-10vw;top:-8vw;background:var(--a)}
+.aurora i:nth-child(2){width:40vw;height:40vw;right:-8vw;top:20vh;background:var(--c);animation-delay:-6s}
+.aurora i:nth-child(3){width:36vw;height:36vw;left:30vw;bottom:-14vw;background:var(--b);animation-delay:-11s}
+@keyframes float{to{transform:translate(5vw,6vh) scale(1.15)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto}}
+h1,h2,h3,.serif{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;letter-spacing:-.01em}
+em{font-style:italic;background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;justify-content:space-between;align-items:center;gap:12px;margin:12px auto 0;max-width:1100px;padding:10px 18px;border:1px solid var(--line);border-radius:999px;background:var(--card);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+nav b{font-family:"Cormorant Garamond",serif;font-size:1.5rem;font-weight:600}
+nav a{color:var(--mute);text-decoration:none;font-size:.88rem;margin:0 8px}nav a:hover{color:var(--ink)}
+.links{display:flex}@media(max-width:640px){.links{display:none}}
+.dots{display:flex;gap:7px}.dots button{width:20px;height:20px;border-radius:50%;border:2px solid var(--on);box-shadow:0 0 0 1px var(--line);cursor:pointer}
+.dots button[aria-pressed=true]{box-shadow:0 0 0 2px var(--ink)}
+section{max-width:1100px;margin:0 auto;padding:72px 20px}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-top:56px}
+@media(max-width:820px){.hero{grid-template-columns:1fr}}
+.pill{display:inline-block;padding:6px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-size:.78rem;color:var(--mute);margin-bottom:18px}
+h1{font-size:clamp(2.8rem,7vw,5.4rem);line-height:1.02}
+.lead{color:var(--mute);margin:20px 0 28px;max-width:34em;font-size:1.05rem}
+.btn{display:inline-block;padding:14px 26px;border-radius:999px;border:0;font:600 .95rem Manrope,sans-serif;cursor:pointer;text-decoration:none;color:var(--on);background:linear-gradient(120deg,var(--a),var(--b));box-shadow:0 12px 30px -10px var(--a);transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}.btn.ghost{background:var(--card);color:var(--ink);box-shadow:none;border:1px solid var(--line);margin-left:8px}
+.orb{position:relative;aspect-ratio:1;max-width:420px;margin:auto;width:100%}
+.orb div{position:absolute;border-radius:50%;box-shadow:0 30px 60px -20px rgba(80,20,50,.35),inset 0 0 0 6px rgba(255,255,255,.35);transition:background .6s}
+.orb .o1{inset:6%;background:var(--skin,#d3ae86)}
+.orb .o2{width:34%;height:34%;right:0;top:4%;background:var(--m,#e0698f);animation:float 9s infinite alternate}
+.orb .o3{width:24%;height:24%;left:0;bottom:12%;background:var(--m2,#c9a4f0);animation:float 11s infinite alternate-reverse}
+.orb span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;font-family:"Cormorant Garamond",serif;font-size:1.5rem;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.35);font-style:italic}
+.head{max-width:620px;margin-bottom:34px}.head h2{font-size:clamp(2rem,4.5vw,3.2rem);line-height:1.1}.head p{color:var(--mute);margin-top:10px}
+.glass{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:26px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.lab{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin:18px 0 10px}.lab:first-child{margin-top:0}
+.sw{display:flex;gap:8px;flex-wrap:wrap}
+.sw button{width:44px;height:44px;border-radius:50%;border:3px solid transparent;cursor:pointer;box-shadow:0 0 0 1px var(--line);transition:transform .2s}
+.sw button[aria-pressed=true]{border-color:var(--bg);box-shadow:0 0 0 3px var(--a);transform:scale(1.12)}
+.chip{padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);font:500 .85rem Manrope,sans-serif;cursor:pointer}
+.chip[aria-pressed=true]{background:linear-gradient(120deg,var(--a),var(--b));color:var(--on);border-color:transparent}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.finder{display:grid;grid-template-columns:340px 1fr;gap:22px}@media(max-width:860px){.finder{grid-template-columns:1fr}}
+.res{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:18px;display:flex;flex-direction:column;gap:10px;animation:rise .5s both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+.card .chipc{height:84px;border-radius:16px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.card h3{font-size:1.35rem;line-height:1.15}.card small{color:var(--mute)}
+.bar{height:6px;border-radius:9px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--a),var(--b));border-radius:9px}
+.tag{font-size:.7rem;padding:3px 10px;border-radius:99px;border:1px solid var(--line);color:var(--mute);width:max-content}
+.why{font-size:.84rem;color:var(--mute)}
+.fix{display:flex;gap:6px;flex-wrap:wrap}.fix .chip{padding:5px 10px;font-size:.72rem}
+.note{margin-top:16px;padding:14px 18px;border-radius:18px;border:1px dashed var(--line);font-size:.84rem;color:var(--mute)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.steps .glass{padding:22px}.steps .n{font:italic 600 2.6rem "Cormorant Garamond",serif;color:var(--a);line-height:1}.steps h3{font-size:1.4rem;margin:6px 0}.steps p{color:var(--mute);font-size:.9rem}
+footer{text-align:center;padding:50px 20px 70px;color:var(--mute);font-size:.85rem}footer b{font:600 1.6rem "Cormorant Garamond",serif;color:var(--ink);display:block}
+
+[hidden]{display:none!important}
+dialog{border:1px solid var(--line);border-radius:28px;background:var(--bg);color:var(--ink);padding:22px;width:min(440px,94vw);max-height:92vh;overflow:auto}
+dialog::backdrop{background:rgba(30,10,25,.55);backdrop-filter:blur(4px)}
+dialog h3{font-size:1.6rem;margin-bottom:6px}
+.vw{position:relative;border-radius:20px;overflow:hidden;background:#000;aspect-ratio:3/4}
+.vw video{width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+.oval{position:absolute;left:22%;top:11%;width:56%;height:78%;border:3px dashed #fff;border-radius:50%;box-shadow:0 0 0 999px rgba(0,0,0,.38)}
+.chk{display:flex;gap:8px;align-items:flex-start;font-size:.84rem;color:var(--mute);margin:8px 0}
+.chk input{margin-top:4px;accent-color:var(--a)}
+.priv{font-size:.78rem;color:var(--mute);margin-top:12px}
+.warn{margin:10px 0;padding:10px 14px;border-radius:14px;background:rgba(240,160,60,.16);font-size:.82rem}
+#cv{width:100%;border-radius:18px;cursor:crosshair;display:block}
+.two{display:flex;gap:10px;align-items:center;margin:12px 0}.two i{flex:1;height:54px;border-radius:14px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.acts .btn,.acts .chip{margin:0}
+.tkc{border-radius:22px;padding:18px;background:#fff;color:#2a1620;border:1px solid var(--line)}
+.tkc .sw2{height:120px;border-radius:16px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
+.tkc h3{font-size:1.8rem;margin:12px 0 2px}.tkc p{font-size:.9rem;color:#6d4a5c}
+.tkc .code{font:700 1.7rem Manrope,sans-serif;margin-top:8px;letter-spacing:.04em}
+.tkc .say{margin-top:12px;padding-top:12px;border-top:1px dashed #d9bfcc;font-size:.88rem}
+.stores{list-style:none;padding:0;margin:8px 0 0}.stores li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.88rem}
+.stores a{color:var(--a);font-weight:600}
+.srcrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+@media print{body *{visibility:hidden}#tkc,#tkc *{visibility:visible}#tkc{position:fixed;left:0;top:0;width:100%}}
+</style>
+</head>
+<body>
+<div class="aurora"><i></i><i></i><i></i></div>
+
+<nav>
+  <b>awa beauty<em>.</em></b>
+  <div class="links"><a href="#finder">Shade Finder</a><a href="#how">Cara kerja</a><a href="#trust">Transparansi</a></div>
+  <div class="dots" id="themes" aria-label="Pilih suasana"></div>
+</nav>
+
+<section class="hero">
+  <div>
+    <span class="pill">✦ makeup Indonesia + internasional</span>
+    <h1>Shade yang pas, <em>dengan alasan</em> yang jelas.</h1>
+    <p class="lead">Bukan AI yang asal nebak warna kulit dari satu foto. Awa Beauty menghitung kemiripan warna pakai CIELAB, ngasih tau seberapa yakin hasilnya, dan kamu selalu bisa mengoreksinya. ♡</p>
+    <a class="btn" href="#finder">Cari shade-ku</a><a class="btn ghost" href="#how">Lihat cara kerjanya</a>
+  </div>
+  <div class="orb" aria-hidden="true"><div class="o1"></div><div class="o2"></div><div class="o3"></div><span>your<br>shade</span></div>
+</section>
+
+<section id="finder">
+  <div class="head"><h2>Shade <em>Finder</em></h2><p>Pilih warna kulitmu yang paling mirip, atur undertone, lalu lihat rekomendasi beserta alasannya.</p></div>
+  <div class="finder">
+    <div class="glass">
+      <div class="lab">Warna kulit</div><div class="sw" id="skins"></div>
+      <div class="lab">Undertone</div><div class="row" id="unders"></div>
+      <div class="lab">Kategori</div><div class="row" id="cats"></div>
+      <div class="lab">Atau tebak dari foto</div>
+      <div class="row"><button class="chip" type="button" id="btnCam">📷 Kamera</button><button class="chip" type="button" id="btnGal">🖼 Galeri</button></div>
+      <input type="file" id="file" accept="image/*" hidden>
+      <p class="priv">🔒 Fotomu diproses di browser dan tidak disimpan atau diunggah.</p>
+      <div class="note">Data produk dan daftar toko di sini adalah <b>contoh demo</b>. Nanti diganti data asli dari file JSON hasil pipeline.</div>
+    </div>
+    <div>
+      <div class="res" id="res"></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="head"><h2>Cara <em>kerjanya</em></h2><p>Dari data mentah sampai rekomendasi, setiap langkahnya bisa dilacak.</p></div>
+  <div class="steps">
+    <div class="glass"><div class="n">01</div><h3>Kumpulin data</h3><p>Makeup API, dataset terbuka, dan sumber resmi brand yang memang mengizinkan.</p></div>
+    <div class="glass"><div class="n">02</div><h3>Bersihin &amp; normalisasi</h3><p>Pipeline Python merapikan brand, kategori, harga, dan duplikasi.</p></div>
+    <div class="glass"><div class="n">03</div><h3>Hitung warna</h3><p>HEX diubah ke CIELAB, lalu dihitung Delta E. Lebih akurat daripada bandingin kode warna.</p></div>
+    <div class="glass"><div class="n">04</div><h3>Jelasin &amp; koreksi</h3><p>Setiap hasil punya alasan, tingkat keyakinan, dan tombol koreksi dari kamu.</p></div>
+  </div>
+</section>
+
+<section id="trust">
+  <div class="head"><h2>Data yang <em>jujur</em></h2><p>Setiap atribut produk diberi label supaya tebakan nggak pernah dianggap fakta resmi.</p></div>
+  <div class="glass"><div class="row">
+    <span class="chip">verified · dari sumber resmi</span><span class="chip">inferred · diperkirakan model</span><span class="chip">user_reported · dari pengalaman pengguna</span><span class="chip">unknown · belum tersedia</span>
+  </div></div>
+</section>
+
+<footer><b>awa beauty.</b>Dibuat pelan-pelan, dengan hati. ✦ proyek riset nonkomersial</footer>
+
+<dialog id="ph">
+  <div id="vcam">
+    <h3>Foto dengan kamera</h3>
+    <div class="vw"><video id="vid" playsinline muted></video><div class="oval"></div></div>
+    <p class="warn" id="camErr" hidden></p>
+    <label class="chk"><input type="checkbox" class="g"> Menghadap jendela / cahaya alami, bukan lampu kuning</label>
+    <label class="chk"><input type="checkbox" class="g"> Tanpa filter atau beauty mode</label>
+    <label class="chk"><input type="checkbox" class="g"> Wajah di dalam bingkai, tanpa makeup tebal</label>
+    <div class="acts"><button class="btn" type="button" id="snap">Ambil foto</button><button class="chip" type="button" onclick="ph.close()">Batal</button></div>
+  </div>
+  <div id="vres" hidden>
+    <h3>Estimasi dari foto</h3>
+    <canvas id="cv"></canvas>
+    <p class="priv">Tap foto untuk memindahkan titik sampel ke pipi atau dahi yang kena cahaya merata.</p>
+    <div class="two"><i id="cs"></i><i id="ct"></i></div>
+    <p id="rt" class="why"></p>
+    <p class="warn" id="rw" hidden></p>
+    <div class="acts"><button class="btn" type="button" id="use">Pakai tone ini</button><button class="chip" type="button" id="again">Ulangi</button><button class="chip" type="button" onclick="ph.close()">Tutup</button></div>
+    <p class="priv">Ini estimasi, bukan hasil pasti. Setelah dipakai, kamu tetap bisa mengoreksi lewat skala tone.</p>
+  </div>
+</dialog>
+<dialog id="tkd">
+  <div class="tkc" id="tkc"></div>
+  <div class="lab" style="margin-top:18px">Biasanya tersedia di</div>
+  <ul class="stores" id="stl"></ul>
+  <p class="priv">Bukan info stok. <b>verified</b> = sudah dicek manual, <b>unknown</b> = belum dipastikan. Cek ketersediaan lewat situs resmi toko.</p>
+  <div class="acts"><button class="btn" type="button" onclick="window.print()">Cetak</button><button class="chip" type="button" onclick="tkd.close()">Tutup</button></div>
+  <p class="priv">Tips: screenshot kartu di atas, lalu tunjukkan ke kasir.</p>
+</dialog>
+
+<script>
+const SKINS=["#f6ede4","#f3e7db","#eadbc8","#e0c8a8","#d3ae86","#c0916a","#a97854","#8d5f3d","#6f4a2f","#4a3022"];
+const THEMES=[["rose","#e0698f"],["lavender","#8a63e0"],["peach","#e8794d"],["midnight","#2d1634"]];
+// c: base / blush / lip ; u: warm / neutral / cool ; s: source label
+const DB=[
+["Sheer Skin Tint","Sample Brand A","base","#f1e2d2","neutral","inferred"],
+["Silk Veil Foundation","Sample Brand B","base","#ecd5bd","warm","inferred"],
+["Glow Cushion","Sample Brand C","base","#e6cdb8","cool","inferred"],
+["Soft Matte Foundation","Sample Brand A","base","#dcbf9c","warm","verified"],
+["Skin Serum Concealer","Sample Brand D","base","#d6b48f","neutral","inferred"],
+["Velvet Foundation","Sample Brand B","base","#c99d74","warm","verified"],
+["Second Skin Tint","Sample Brand C","base","#b88862","neutral","inferred"],
+["Radiant Foundation","Sample Brand E","base","#a06f4b","warm","verified"],
+["Deep Glow Foundation","Sample Brand E","base","#7c5233","neutral","inferred"],
+["Rich Matte Foundation","Sample Brand D","base","#5a3a26","cool","unknown"],
+["Petal Cream Blush","Sample Brand A","blush","#e9a3a0","cool","verified"],
+["Peach Bloom Blush","Sample Brand C","blush","#e8987c","warm","inferred"],
+["Rosewood Blush","Sample Brand B","blush","#c4726f","neutral","verified"],
+["Terracotta Blush","Sample Brand E","blush","#b3583f","warm","inferred"],
+["Berry Flush","Sample Brand D","blush","#9a3f5c","cool","inferred"],
+["Nude Rose Lip","Sample Brand A","lip","#b97a72","neutral","verified"],
+["Sunset Coral Lip","Sample Brand C","lip","#d4584a","warm","inferred"],
+["Cherry Velvet Lip","Sample Brand B","lip","#a8283c","cool","verified"],
+["Mauve Satin Lip","Sample Brand D","lip","#8a4560","cool","inferred"],
+["Brick Matte Lip","Sample Brand E","lip","#8c3a2a","warm","user_reported"]
+];
+const SHIFT={base:[0,0,0],blush:[-9,20,5],lip:[-24,28,8]};
+const NAMES={base:"Base",blush:"Blush",lip:"Lip"};
+const S={skin:4,under:"neutral",cat:"base",dL:0,dB:0};
+const $=id=>document.getElementById(id);
+function lab(hex){const v=[1,3,5].map(i=>parseInt(hex.substr(i,2),16)/255).map(c=>c>.04045?Math.pow((c+.055)/1.055,2.4):c/12.92);
+ let x=(v[0]*.4124+v[1]*.3576+v[2]*.1805)/.95047,y=v[0]*.2126+v[1]*.7152+v[2]*.0722,z=(v[0]*.0193+v[1]*.1192+v[2]*.9505)/1.08883;
+ const f=t=>t>.008856?Math.cbrt(t):7.787*t+16/116;return[116*f(y)-16,500*(f(x)-f(y)),200*(f(y)-f(z))]}
+const dE=(p,q)=>Math.hypot(p[0]-q[0],p[1]-q[1],p[2]-q[2]);
+function toggle(wrap,btns,i){btns.forEach((b,j)=>b.setAttribute("aria-pressed",i===j))}
+function mk(parent,items,fn,cls){const bs=items.map((it,i)=>{const b=document.createElement("button");b.type="button";if(cls)b.className=cls;fn(b,it,i);return b});bs.forEach(b=>parent.appendChild(b));return bs}
+const skinB=mk($("skins"),SKINS,(b,c,i)=>{b.style.background=c;b.title="Tone "+(i+1);b.setAttribute("aria-label","Tone "+(i+1));b.setAttribute("aria-pressed",i===S.skin);b.onclick=()=>{S.skin=i;S.dL=0;S.dB=0;toggle(0,skinB,i);render()}});
+const unB=mk($("unders"),["warm","neutral","cool"],(b,u,i)=>{b.textContent=u;b.setAttribute("aria-pressed",u===S.under);b.onclick=()=>{S.under=u;S.dL=0;S.dB=0;toggle(0,unB,i);render()}},"chip");
+const catB=mk($("cats"),["base","blush","lip"],(b,c,i)=>{b.textContent=NAMES[c];b.setAttribute("aria-pressed",c===S.cat);b.onclick=()=>{S.cat=c;toggle(0,catB,i);render()}},"chip");
+function target(){const l=lab(SKINS[S.skin]);const sh=SHIFT[S.cat];const ub=S.under==="warm"?3:S.under==="cool"?-3:0;
+ return[l[0]+sh[0]+S.dL,l[1]+sh[1]-ub*.4,l[2]+sh[2]+ub+S.dB]}
+function render(){
+ const t=target(),root=document.documentElement.style;
+ const list=DB.filter(d=>d[2]===S.cat).map(d=>{let e=dE(t,lab(d[3]));if(d[4]!==S.under&&S.under!=="neutral"&&d[4]!=="neutral")e+=3;return{d,e}}).sort((a,b)=>a.e-b.e).slice(0,4);
+ const o=document.querySelector(".orb");o.style.setProperty("--skin",SKINS[S.skin]);if(list[0])o.style.setProperty("--m",list[0].d[3]);if(list[1])o.style.setProperty("--m2",list[1].d[3]);
+ $("res").innerHTML=list.map(({d,e},k)=>{
+  const pct=Math.max(8,Math.round(100-e*3.2));
+  const lvl=e<4?"sangat dekat":e<8?"cukup dekat":"agak jauh";
+  const why=`Delta E ${e.toFixed(1)} (${lvl}). Undertone produk ${d[4]}${d[4]===S.under?", sama dengan pilihanmu.":S.under==="neutral"||d[4]==="neutral"?", masih aman dipakai.":", beda dengan pilihanmu (ada penalti)."}`;
+  return `<div class="card" style="animation-delay:${k*70}ms"><div class="chipc" style="background:${d[3]}"></div>
+  <div><h3>${d[0]}</h3><small>${d[1]} · ${d[3].toUpperCase()}</small></div>
+  <div class="bar" role="img" aria-label="Kecocokan ${pct}%"><i style="width:${pct}%"></i></div>
+  <small>Kecocokan ${pct}% · keyakinan ${e<6?"tinggi":e<10?"sedang":"rendah"}</small>
+  <span class="tag">${d[5]}</span><p class="why">${why}</p><button class="chip" type="button" onclick="tk(${DB.indexOf(d)})">🛍 Bawa ke toko</button></div>`}).join("");
+ const fx=document.createElement("div");fx.className="fix";
+ [["Kurang terang","dL",4],["Kurang gelap","dL",-4],["Lebih hangat","dB",4],["Lebih dingin","dB",-4]].forEach(([n,k,v])=>{const b=document.createElement("button");b.className="chip";b.textContent=n;b.onclick=()=>{S[k]+=v;render()};fx.appendChild(b)});
+ const w=document.createElement("div");w.className="note";w.style.gridColumn="1/-1";w.innerHTML="Hasil kurang pas? Koreksi manual: ";w.appendChild(fx);
+ $("res").appendChild(w);
+}
+const thB=mk($("themes"),THEMES,(b,t,i)=>{b.style.background=t[1];b.title=t[0];b.setAttribute("aria-label","Tema "+t[0]);b.onclick=()=>setTheme(i)});
+function setTheme(i){document.documentElement.dataset.theme=THEMES[i][0];toggle(0,thB,i);try{localStorage.setItem("awa-theme",i)}catch(e){}}
+let ti=0;try{const v=localStorage.getItem("awa-theme");if(v!==null)ti=+v;else if(matchMedia("(prefers-color-scheme: dark)").matches)ti=3}catch(e){}
+const ph=$("ph"),tkd=$("tkd"),vid=$("vid"),cv=$("cv"),cx=cv.getContext("2d"),base=document.createElement("canvas");
+let stream=null,srcT="kamera",pt=[.5,.5],est=null;
+const UN=["warm","neutral","cool"];
+function stopCam(){if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}vid.srcObject=null}
+function show(v){$("vcam").hidden=v!=="cam";$("vres").hidden=v!=="res"}
+async function openCam(){document.querySelectorAll(".g").forEach(c=>c.checked=false);show("cam");$("camErr").hidden=true;if(!ph.open)ph.showModal();
+ try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"user"},audio:false});vid.srcObject=stream;await vid.play()}
+ catch(e){$("camErr").textContent="Kamera tidak bisa dibuka. Cek izin kamera di browser, atau pakai foto dari galeri.";$("camErr").hidden=false}}
+$("btnCam").onclick=openCam;$("again").onclick=openCam;
+$("btnGal").onclick=()=>$("file").click();
+ph.addEventListener("close",stopCam);
+function load(src,w,h,mirror){const k=Math.min(1,640/w);base.width=cv.width=Math.round(w*k);base.height=cv.height=Math.round(h*k);
+ const b=base.getContext("2d");if(mirror){b.translate(base.width,0);b.scale(-1,1)}b.drawImage(src,0,0,base.width,base.height);pt=[.5,.5];show("res");analyze()}
+$("file").onchange=e=>{const f=e.target.files[0];if(!f)return;const im=new Image();im.onload=()=>{srcT="galeri";stopCam();if(!ph.open)ph.showModal();load(im,im.naturalWidth,im.naturalHeight);URL.revokeObjectURL(im.src)};im.src=URL.createObjectURL(f);e.target.value=""};
+$("snap").onclick=()=>{if(!vid.videoWidth)return;const all=[...document.querySelectorAll(".g")].every(c=>c.checked);srcT=all?"kamera":"kamera-tanpa-cek";load(vid,vid.videoWidth,vid.videoHeight,true);stopCam()};
+cv.onclick=e=>{const r=cv.getBoundingClientRect();pt=[(e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height];analyze()};
+function analyze(){const W=cv.width,H=cv.height;cx.drawImage(base,0,0);
+ const r=Math.round(Math.min(W,H)*.05),x=Math.round(pt[0]*W),y=Math.round(pt[1]*H),x0=Math.max(0,x-r),y0=Math.max(0,y-r);
+ const d=cx.getImageData(x0,y0,Math.min(2*r,W-x0),Math.min(2*r,H-y0)).data,px=[];
+ for(let i=0;i<d.length;i+=4)px.push([d[i],d[i+1],d[i+2]]);
+ const lm=p=>p[0]*.3+p[1]*.59+p[2]*.11;px.sort((a,b)=>lm(a)-lm(b));
+ const k=Math.floor(px.length*.2),m=px.slice(k,px.length-k);
+ const avg=[0,1,2].map(i=>Math.round(m.reduce((s,p)=>s+p[i],0)/m.length)),hex="#"+avg.map(v=>v.toString(16).padStart(2,"0")).join(""),L=lab(hex);
+ let bi=0,bd=1e9;SKINS.forEach((s,i)=>{const e=dE(L,lab(s));if(e<bd){bd=e;bi=i}});
+ const h=Math.atan2(L[2],L[1])*180/Math.PI,u=h>60?"warm":h<50?"cool":"neutral";
+ const bad=L[0]<25||L[0]>92||bd>14;
+ const lvl=bad?"rendah":srcT==="kamera"?"sedang–tinggi":"sedang";
+ est={bi,u};
+ cx.lineWidth=4;cx.strokeStyle="#fff";cx.beginPath();cx.arc(x,y,r+4,0,7);cx.stroke();cx.lineWidth=1.5;cx.strokeStyle="#000";cx.beginPath();cx.arc(x,y,r+4,0,7);cx.stroke();
+ $("cs").style.background=hex;$("ct").style.background=SKINS[bi];
+ $("rt").innerHTML=`Warna terbaca <b>${hex.toUpperCase()}</b> → paling dekat <b>Tone ${bi+1}</b>, undertone <b>${u}</b>. Tingkat keyakinan: <b>${lvl}</b>.`;
+ const w=$("rw");const msg=bad?"Pencahayaan atau titik sampel kurang pas (terlalu gelap, terlalu terang, atau bukan kulit). Coba pindahkan titik atau foto ulang di dekat jendela.":srcT==="galeri"?"Foto dari galeri sering sudah kena filter, beauty mode, atau pencahayaan yang tidak diketahui, jadi akurasinya lebih rendah. Cek lagi hasilnya di skala tone.":srcT==="kamera-tanpa-cek"?"Panduan kamera belum kamu centang semua, jadi keyakinan diturunkan.":"";
+ w.textContent=msg;w.hidden=!msg}
+$("use").onclick=()=>{S.skin=est.bi;S.under=est.u;S.dL=0;S.dB=0;toggle(0,skinB,est.bi);toggle(0,unB,UN.indexOf(est.u));render();ph.close();$("finder").scrollIntoView()};
+const LINK={Sephora:"https://www.sephora.co.id",Sociolla:"https://www.sociolla.com",Watsons:"https://www.watsons.co.id"};
+const ST={"Sample Brand A":{Sephora:"verified",Sociolla:"verified",Watsons:"unknown"},"Sample Brand B":{Sephora:"verified",Sociolla:"unknown"},"Sample Brand C":{Sociolla:"verified",Watsons:"unknown"},"Sample Brand D":{Sociolla:"unknown",Watsons:"unknown"},"Sample Brand E":{Sephora:"unknown",Sociolla:"unknown"}};
+function tk(i){const d=DB[i],code=d[4][0].toUpperCase()+Math.round(lab(d[3])[0]);
+ $("tkc").innerHTML=`<div class="sw2" style="background:${d[3]}"></div><h3>${d[0]}</h3><p>${d[1]} · ${NAMES[d[2]]}</p><div class="code">${code}</div><p>HEX ${d[3].toUpperCase()} · kode demo</p><div class="say">Halo, aku cari produk ini dengan shade <b>${code}</b>. Ada stoknya?</div>`;
+ $("stl").innerHTML=Object.entries(ST[d[1]]||{}).map(([n,s])=>`<li><span>${n} · <a href="${LINK[n]}" target="_blank" rel="noopener">situs resmi</a></span><span class="tag">${s}</span></li>`).join("")||"<li>Belum ada data toko.</li>";
+ tkd.showModal()}
+setTheme(ti);render();
+</script>
+</body>
+</html>
